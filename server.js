@@ -1,6 +1,7 @@
 let dotenv = require("dotenv");
 dotenv.config();
-let { serverport } = require("./config");
+let serverPort = process.env.PORT;
+let mongoUrl = process.env.MONGODB_URI;
 
 let express = require("express");
 let bodyParser = require("body-parser");
@@ -17,7 +18,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", function (request, response) {
-  response.redirect("/prices");
   response.send("Hello API");
 });
 
@@ -31,11 +31,11 @@ app.post("/prices", pricesController.create);
 
 app.delete("/prices/:id", pricesController.delete);
 
-db.connect("mongodb://localhost:27017/prices", function (err) {
+db.connect(mongoUrl, function (err) {
   if (err) {
     return console.log(err);
   }
-  app.listen(serverport, function () {
+  app.listen(serverPort, function () {
     console.log("API app started");
   });
 });
