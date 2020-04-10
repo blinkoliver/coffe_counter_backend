@@ -17,9 +17,5 @@
     "mongoose": "^5.9.7",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.2"
-  },
-  "scripts": {
-    "start_local": "node -r dotenv/config server.js",
-    "start": "node server.js"
   }
 }
