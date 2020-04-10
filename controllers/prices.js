@@ -46,7 +46,6 @@ exports.create = function (request, response) {
       console.log(err);
       return response.sendStatus(500);
     }
-    console.log(price);
     response.send(price);
   });
 };
