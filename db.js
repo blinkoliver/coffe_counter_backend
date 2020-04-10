@@ -1,4 +1,6 @@
 let MongoClient = require("mongodb").MongoClient;
+let duetPrices = process.env.DB_NAME;
+
 
 let state = {
   db: null
@@ -20,7 +22,7 @@ exports.connect = function(url, done) {
       if (err) {
         return done(err);
       }
-      state.db = db.db("duetPrices");
+      state.db = db.db(duetPrices);
       done();
     }
   );
