@@ -7,6 +7,7 @@ let express = require("express");
 let bodyParser = require("body-parser");
 let db = require("./db");
 let pricesController = require("./controllers/prices");
+let usersContoller  = require("./controllers/users");
 
 let app = express();
 
@@ -22,14 +23,17 @@ app.get("/", function (request, response) {
 });
 
 app.get("/prices", pricesController.all);
+app.get("/users", usersContoller.all)
 
 app.get("/prices/allToday", pricesController.allToday);
 
 app.get("/prices/allToday/daySum", pricesController.daySum);
 
 app.post("/prices", pricesController.create);
+app.post("/users", usersContoller.create)
 
 app.delete("/prices/:id", pricesController.delete);
+app.delete("/users/:id", usersContoller.delete)
 
 db.connect(mongoUrl, function (err) {
   if (err) {
