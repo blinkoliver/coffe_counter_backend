@@ -24,7 +24,7 @@ exports.allToday = function (cb) {
 exports.create = function (price, cb) {
   db.get()
     .collection("prices")
-    .insert(price, (err, result) => {
+    .insertOne(price, (err, result) => {
       cb(err, result);
     });
 };

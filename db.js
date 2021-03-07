@@ -1,11 +1,8 @@
-let MongoClient = require("mongodb").MongoClient;
-let duetPrices = process.env.DB_NAME;
-
+const MongoClient = require("mongodb").MongoClient;
 
 let state = {
   db: null
 };
-
 
 exports.get = function() {
     return state.db;
@@ -22,7 +19,7 @@ exports.connect = function(url, done) {
       if (err) {
         return done(err);
       }
-      state.db = db.db(duetPrices);
+      state.db = db.db(process.env.MONGO_DB);
       done();
     }
   );
