@@ -33,8 +33,7 @@ exports.delete = function (id, cb) {
   db.get()
     .collection("prices")
     .deleteOne(
-      { _id: ObjectID(id) },
-
+      { id: id },
       function (err, result) {
         cb(err, result);
       }

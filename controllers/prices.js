@@ -2,32 +2,32 @@ let Prices = require("../models/prices");
 let moment = require("moment");
 let fetch = require("node-fetch");
 
-exports.all = function (request, response) {
+exports.all = function (req, res) {
   Prices.all(function (err, docs) {
     if (err) {
       console.log(err);
-      return response.sendStatus(500);
+      return res.sendStatus(500);
     }
-    response.send(docs);
+    res.send(docs);
   });
 };
 
-exports.allToday = function (request, response) {
+exports.allToday = function (req, res) {
   Prices.allToday(function (err, docs) {
     if (err) {
       console.log(err);
-      return response.sendStatus(500);
+      return res.sendStatus(500);
     }
-    response.send(docs);
+    res.send(docs);
   });
 };
-exports.daySum = function (request, response) {
+exports.daySum = function (req, res) {
   Prices.allToday(function (err, docs) {
     if (err) {
       console.log(err);
-      return response.sendStatus(500);
+      return res.sendStatus(500);
     }
-    response.send(docs);
+    res.send(docs);
     let date = moment().format("D-MM-YYYY");
     let sum = docs
       .map((element) => element.price)
@@ -39,23 +39,24 @@ exports.daySum = function (request, response) {
   });
 };
 
-exports.create = function (request, response) {
-  let price = { price: request.body.price, date: moment.utc()._d };
+exports.create = function (req, res) {
+  const { body } = req;
+  const price = { id: body.id, value: body.value, date: moment(body.date)._d };
   Prices.create(price, (err, result) => {
     if (err) {
-      console.log(err);
-      return response.sendStatus(500);
+      return res.sendStatus(500);
+    } else {
+      res.send(price);
     }
-    response.send(price);
   });
 };
 
-exports.delete = function (request, response) {
-  Prices.delete(request.params.id, (err, result) => {
+exports.delete = function (req, res) {
+  Prices.delete(req.params.id, (err, result) => {
     if (err) {
       console.log(err);
-      return response.sendStatus(500);
+      return res.sendStatus(500);
     }
-    response.sendStatus(200);
+    res.sendStatus(200);
   });
 };
