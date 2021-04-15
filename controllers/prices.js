@@ -30,7 +30,7 @@ exports.daySum = function (req, res) {
     res.send(docs);
     let date = moment().format("D-MM-YYYY");
     let sum = docs
-      .map((element) => element.price)
+      .map((element) => element.value)
       .reduce((a, b) => a + b, 0)
       .toFixed(2);
     fetch(
